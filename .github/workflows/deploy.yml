@@ -49,4 +49,4 @@ jobs:
             pnpm run lint:fix
             pnpm run build
 
-            # pm2 restart ecosystem.config.cjs
+            pm2 restart ecosystem.config.cjs

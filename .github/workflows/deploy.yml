@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_DEPLOY_KEY }}
+          script_stop: true
+          script: |
+            set -e
+
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+            cd ~/projects/swiper-carousel || { mkdir -p ~/projects/swiper-carousel && git clone https://github.com/${{ github.repository }} ~/projects/swiper-carousel && cd ~/projects/swiper-carousel; }
+
+            git fetch origin main
+            git reset --hard origin/main
+
+            nvm use 22 || nvm install 22
+
+            for pkg in pnpm pm2; do
+              command -v $pkg &> /dev/null || npm install -g $pkg
+            done
+
+            pnpm install --frozen-lockfile
+            pnpm run lint:fix
+            pnpm run build
+
+            # pm2 restart ecosystem.config.cjs

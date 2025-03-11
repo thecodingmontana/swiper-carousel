@@ -4,7 +4,7 @@ import { githubUrl, twitterUrl } from '~/types'
 </script>
 
 <template>
-  <footer class="px-4 py-6">
+  <footer class="px-4 py-6 sm:py-2 text-white">
     <div class="container flex items-center p-0">
       <CodeIcon class="mr-2 size-6" />
       <p class="text-sm">

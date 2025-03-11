@@ -8,7 +8,8 @@ const { $gsap } = useNuxtApp()
 const swiper = useSwiper(containerRef)
 const currentActiveSlide = ref(1)
 
-onMounted(() => {
+onMounted(async () => {
+  await nextTick()
   animateSlide()
 })
 
@@ -66,7 +67,9 @@ const onPrevSlide = async () => {
       <div class="row">
         <div class="swiper one">
           <ClientOnly>
-            <swiper-container ref="containerRef">
+            <swiper-container
+              ref="containerRef"
+            >
               <swiper-slide
                 v-for="(slide, idx) in slides"
                 :key="idx"

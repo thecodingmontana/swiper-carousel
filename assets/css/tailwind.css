@@ -27,7 +27,7 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem
+    --radius: 0.5rem;
   }
   .dark {
     --background: 20 14.3% 4.1%;
@@ -53,7 +53,7 @@
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%
+    --chart-5: 340 75% 55%;
   }
 }
 @layer base {
@@ -67,7 +67,7 @@
 }
 
 .carousel {
-  padding-top: 150px;
+  padding-top: 100px;
 }
 
 .wrapper {
@@ -171,5 +171,46 @@
 
 .icon {
   font-size: 20px;
-  color: #fff
+  color: #fff;
+}
+
+.loader-wrapper {
+  display: grid;
+  min-height: 80vh;
+  place-content: center;
+}
+
+.loader {
+  animation: spin 1s linear infinite;
+  color: #fff;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .img-wrapper {
+    max-width: 350px;
+    height: 200px;
+  }
+
+  .larger-text {
+    font-size: 48px;
+  }
+
+  .counter-indicator {
+    font-size: 30px;
+  }
+
+  .carousel-footer {
+    margin-top: 50px;
+    gap: 15px;
+  }
+
+  .swiper-two {
+    font-size: 15px;
+  }
 }

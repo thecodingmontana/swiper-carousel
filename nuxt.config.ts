@@ -32,6 +32,11 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
   compatibilityDate: '2024-11-01',
+  vite: {
+    server: {
+      allowedHosts: ['5abe-105-163-2-222.ngrok-free.app'],
+    },
+  },
   eslint: {
     config: {
       stylistic: true,

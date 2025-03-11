@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     'nuxt-og-image',
     '@nuxt/eslint',
+    'nuxt-swiper',
   ],
   devtools: { enabled: true },
   site: {
